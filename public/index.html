@@ -4,41 +4,103 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Professional Data Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <main class="container">
-      <header>
-        <h1>Professional Data Platform</h1>
-        <p>Securely manage health professional records and subscriptions.</p>
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">Professional Data Platform</p>
+          <h1>Secure workforce records, onboarding, and billing in one dashboard.</h1>
+          <p class="muted">
+            A modern workflow for healthcare and regulated teams with profile integrity checks,
+            safe checkout, and compliance-friendly safeguards.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="themeBtn" class="secondary-btn" type="button">🌙 Toggle theme</button>
+          <button id="clearDraftBtn" class="ghost-btn" type="button">Clear saved draft</button>
+        </div>
       </header>
 
-      <section class="card">
-        <h2>1) Authenticate</h2>
-        <button id="loginBtn">Sign in anonymously</button>
-        <p id="authState">Not signed in.</p>
+      <section class="card stats" aria-label="progress summary">
+        <article>
+          <h2>Completion</h2>
+          <p id="completionMeter">0%</p>
+        </article>
+        <article>
+          <h2>Session</h2>
+          <p id="authState">Not signed in.</p>
+        </article>
+        <article>
+          <h2>Security score</h2>
+          <p id="securityState">Waiting for checks…</p>
+        </article>
       </section>
 
       <section class="card">
-        <h2>2) Save Profile</h2>
-        <form id="profileForm">
-          <input name="fullName" placeholder="Full name" required />
-          <input name="profession" placeholder="Profession" required />
-          <input name="licenseNumber" placeholder="License number" required />
-          <input name="country" placeholder="Country" required />
-          <input name="phone" placeholder="Phone (optional)" />
-          <button type="submit">Save profile</button>
-        </form>
-        <pre id="profileResult"></pre>
+        <h2>1) Authenticate</h2>
+        <p class="muted">Anonymous sign-in keeps this demo simple while still using verified ID tokens.</p>
+        <button id="loginBtn" type="button">Sign in anonymously</button>
+      </section>
+
+      <section class="card grid-two">
+        <article>
+          <h2>2) Save Profile</h2>
+          <form id="profileForm" novalidate>
+            <label>
+              Full name
+              <input name="fullName" placeholder="Dr. Alex Johnson" autocomplete="name" required minlength="3" maxlength="80" />
+            </label>
+            <label>
+              Profession
+              <input name="profession" placeholder="General Practitioner" required minlength="3" maxlength="60" />
+            </label>
+            <label>
+              License number
+              <input name="licenseNumber" placeholder="LIC-123456" required minlength="4" maxlength="32" />
+            </label>
+            <label>
+              Country
+              <input name="country" placeholder="United States" required minlength="2" maxlength="56" />
+            </label>
+            <label>
+              Phone (optional)
+              <input name="phone" placeholder="+1 555 123 4567" autocomplete="tel" maxlength="24" />
+            </label>
+            <div class="actions">
+              <button type="submit">Save profile</button>
+              <button id="exportProfileBtn" class="secondary-btn" type="button">Export JSON</button>
+            </div>
+          </form>
+        </article>
+
+        <article>
+          <h2>Profile preview</h2>
+          <dl id="profilePreview" class="preview"></dl>
+          <p class="muted small">Drafts autosave locally, and suspicious characters are sanitized before requests.</p>
+        </article>
       </section>
 
       <section class="card">
         <h2>3) Activate Subscription</h2>
-        <p>Use your Stripe price ID from the dashboard.</p>
-        <input id="priceId" placeholder="price_..." />
-        <button id="subscribeBtn">Go to secure checkout</button>
+        <p class="muted">Use a Stripe price ID from your own test dashboard.</p>
+        <div class="subscribe-row">
+          <input id="priceId" placeholder="price_..." aria-label="Stripe price ID" />
+          <button id="subscribeBtn" type="button">Go to secure checkout</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>API Response</h2>
+        <pre id="profileResult" aria-live="polite"></pre>
       </section>
     </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script type="module" src="/app.js"></script>
   </body>

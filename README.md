@@ -21,7 +21,8 @@ Open `http://localhost:3000`.
 
 - Strict HTTP security headers with Helmet
 - CORS allowlist through environment variable
-- API rate limiting
+- API rate limiting (including stricter limits for checkout sessions)
+- API mutation header checks (`X-Requested-With` + JSON content-type enforcement)
 - Firebase ID token verification for protected endpoints
 - Firestore write/read isolation rules (`firebase/firestore.rules`)
 - Input validation via `express-validator`
@@ -64,3 +65,18 @@ A cron job runs every 6 hours to fetch external records and upsert into `externa
 - Add user consent and data-retention controls.
 - Create account deletion and data export workflows.
 - Maintain a breach-response procedure.
+
+
+## 8) New UX features in this version
+
+- Theme toggle (light/dark) with local persistence
+- Draft autosave for profile edits
+- Live profile preview card
+- Completion and security-strength indicators
+- One-click export of profile draft to JSON
+- Improved responsive layout, spacing, and visual hierarchy
+- Toast notifications for major actions
+
+> For security and compliance reasons, do not use unknown credentials from the internet.
+> Use your own Firebase and Stripe test credentials in `.env` and browser localStorage.
+
