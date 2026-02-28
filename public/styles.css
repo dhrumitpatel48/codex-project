@@ -1,52 +1,238 @@
 :root {
   font-family: Inter, system-ui, sans-serif;
   color: #0f172a;
-  background: #f8fafc;
+  background: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #d8e1ec;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+body.dark {
+  background: #0b1220;
+  --card: #121a2b;
+  --text: #e2e8f0;
+  --muted: #93a4be;
+  --primary: #60a5fa;
+  --primary-dark: #3b82f6;
+  --border: #22304b;
+  --shadow: 0 14px 36px rgba(2, 6, 23, 0.55);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  color: var(--text);
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, #dbeafe 0%, transparent 45%), var(--background, #f1f5f9);
 }
 
 .container {
-  max-width: 860px;
-  margin: 40px auto;
-  padding: 0 16px 30px;
+  max-width: 980px;
+  margin: 32px auto;
+  padding: 0 16px 36px;
   display: grid;
   gap: 18px;
 }
 
 .card {
-  background: white;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 2px 14px rgba(15, 23, 42, 0.08);
+  background: var(--card);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
-form {
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.hero h1 {
+  margin-top: 6px;
+  margin-bottom: 10px;
+  font-size: clamp(1.4rem, 2vw + 1rem, 2.2rem);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.hero-actions {
   display: grid;
   gap: 8px;
 }
 
+.stats {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.stats h2 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.stats p {
+  margin: 8px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+form {
+  display: grid;
+  gap: 10px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
 input,
 button {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #dbe2ea;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
   font-size: 14px;
+  background: #fff;
+}
+
+body.dark input,
+body.dark button {
+  background: #0f172a;
+  color: var(--text);
 }
 
 button {
   cursor: pointer;
-  background: #2563eb;
+  background: var(--primary);
   border: none;
   color: white;
+  font-weight: 600;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: var(--primary-dark);
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.ghost-btn {
+  background: transparent;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.85rem;
+}
+
+.actions,
+.subscribe-row {
+  display: flex;
+  gap: 10px;
+}
+
+.subscribe-row input {
+  flex: 1;
+}
+
+.preview {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.preview div {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.preview dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.preview dd {
+  margin: 2px 0 0;
   font-weight: 600;
 }
 
 pre {
-  background: #f1f5f9;
+  background: #f8fafc;
+  color: #0f172a;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: auto;
+  margin: 0;
+  min-height: 80px;
+}
+
+body.dark pre {
+  background: #0f172a;
+  color: #d6e4ff;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0f172a;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 720px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .actions,
+  .subscribe-row {
+    flex-direction: column;
+  }
 }

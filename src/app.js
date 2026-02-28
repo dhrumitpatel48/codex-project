@@ -9,6 +9,7 @@ import paymentRoutes from './routes/payment.js';
 import paymentWebhookRoutes from './routes/payment-webhook.js';
 import profileRoutes from './routes/profile.js';
 import { notFound, errorHandler } from './middleware/error-handler.js';
+import { requireJsonForApi, requireRequestedWith } from './middleware/security.js';
 import { getEnv } from './config/env.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -40,8 +41,15 @@ export function createApp() {
     max: 200
   }));
 
+  app.use('/api/payments/checkout-session', rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 20
+  }));
+
   app.use('/api/payments/webhook', paymentWebhookRoutes);
   app.use(express.json({ limit: '250kb' }));
+  app.use(requireJsonForApi);
+  app.use(requireRequestedWith);
 
   app.use('/api/health', healthRoutes);
   app.use('/api/profiles', profileRoutes);
